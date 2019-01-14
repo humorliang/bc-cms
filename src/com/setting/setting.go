@@ -10,14 +10,16 @@ import (
 type App struct {
 	RuntimePath string
 	LogPath     string
+	JwtKey      string
 }
 
 //server结构体
 type Server struct {
-	RunMode      string
-	HttpPort     int
-	ReadTimeout  time.Duration
-	WriteTimeout time.Duration
+	RunMode          string
+	HttpPort         int
+	ReadTimeout      time.Duration
+	WriteTimeout     time.Duration
+	TokenTimeoutHour time.Duration
 }
 
 //database结构体
@@ -52,12 +54,13 @@ func SetUp(mode *string) {
 			log.Fatalf("setting load file ‘conf/pro.ini’ error:%s", err)
 		}
 	}
-	sectionToMap("app",AppSetting)
-	sectionToMap("server",ServerSetting)
-	sectionToMap("database",DatabaseSetting)
+	sectionToMap("app", AppSetting)
+	sectionToMap("server", ServerSetting)
+	sectionToMap("database", DatabaseSetting)
 	//相对应的配置
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
 	ServerSetting.WriteTimeout = ServerSetting.WriteTimeout * time.Second
+	ServerSetting.TokenTimeoutHour = ServerSetting.TokenTimeoutHour * time.Hour
 }
 
 //文件信息与结构体绑定

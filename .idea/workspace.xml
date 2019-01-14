@@ -2,17 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51008747-2c32-4ee5-95ab-841613c544c4" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/e/code.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/file/file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/gmysql/mysql.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/logging/log.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/setting/setting.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/conf/dev.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/conf/pro.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/get-lib-list.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/base.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/context.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/link/base.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/link/link.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/post/base.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/post/post.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/term/base.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/term/menu.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/term/tag.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/upload/upload.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/user/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/db/base.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middlerware/cors.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middlerware/jwt.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middlerware/logger.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routers/router.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/te.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/note" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/token_b_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/token_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/encrypt.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/token.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/e/code.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/e/code.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/setting/setting.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/setting/setting.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/conf/dev.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/conf/dev.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/conf/pro.ini" beforeDir="false" afterPath="$PROJECT_DIR$/src/conf/pro.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.go" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,47 +40,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.go">
+      <file leaf-file-name="base.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/controllers/base.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-              <folding>
-                <element signature="e#14#67#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="260">
+              <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mysql.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/gmysql/mysql.go">
+      <file leaf-file-name="base.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/db/base.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
-              <folding>
-                <element signature="e#16#49#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setting.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/setting/setting.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="68" column="1" lean-forward="true" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
-              <folding>
-                <element signature="e#17#58#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+            <state>
+              <caret column="10" selection-start-column="10" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -85,15 +75,40 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/get-lib-list.txt" />
-        <option value="$PROJECT_DIR$/src/com/e/code.go" />
         <option value="$PROJECT_DIR$/src/com/file/file.go" />
-        <option value="$PROJECT_DIR$/src/conf/dev.ini" />
-        <option value="$PROJECT_DIR$/src/com/setting/setting.go" />
-        <option value="$PROJECT_DIR$/src/conf/pro.ini" />
         <option value="$PROJECT_DIR$/src/com/logging/log.go" />
-        <option value="$PROJECT_DIR$/src/test.go" />
         <option value="$PROJECT_DIR$/src/main.go" />
         <option value="$PROJECT_DIR$/src/com/gmysql/mysql.go" />
+        <option value="$PROJECT_DIR$/src/middlerware/auth.go" />
+        <option value="$PROJECT_DIR$/src/utils/JWTtoken.go" />
+        <option value="$PROJECT_DIR$/src/middlerware/jwtToken.go" />
+        <option value="$PROJECT_DIR$/src/test.go" />
+        <option value="$PROJECT_DIR$/src/tests/note" />
+        <option value="$PROJECT_DIR$/src/tests/token_b_test.go" />
+        <option value="$PROJECT_DIR$/src/utils/encrypt.go" />
+        <option value="$PROJECT_DIR$/src/com/base.go" />
+        <option value="$PROJECT_DIR$/src/com/key/key.go" />
+        <option value="$PROJECT_DIR$/src/conf/dev.ini" />
+        <option value="$PROJECT_DIR$/src/conf/pro.ini" />
+        <option value="$PROJECT_DIR$/src/com/setting/setting.go" />
+        <option value="$PROJECT_DIR$/src/utils/token.go" />
+        <option value="$PROJECT_DIR$/src/tests/token_test.go" />
+        <option value="$PROJECT_DIR$/src/com/e/code.go" />
+        <option value="$PROJECT_DIR$/src/middlerware/jwt.go" />
+        <option value="$PROJECT_DIR$/src/middlerware/logger.go" />
+        <option value="$PROJECT_DIR$/src/middlerware/cors.go" />
+        <option value="$PROJECT_DIR$/src/controllers/link/link.go" />
+        <option value="$PROJECT_DIR$/src/controllers/link/base.go" />
+        <option value="$PROJECT_DIR$/src/controllers/post/post.go" />
+        <option value="$PROJECT_DIR$/src/controllers/post/base.go" />
+        <option value="$PROJECT_DIR$/src/controllers/term/base.go" />
+        <option value="$PROJECT_DIR$/src/controllers/term/menu.go" />
+        <option value="$PROJECT_DIR$/src/controllers/term/tag.go" />
+        <option value="$PROJECT_DIR$/src/controllers/upload/upload.go" />
+        <option value="$PROJECT_DIR$/src/controllers/user/user.go" />
+        <option value="$PROJECT_DIR$/src/db/base.go" />
+        <option value="$PROJECT_DIR$/src/routers/router.go" />
+        <option value="$PROJECT_DIR$/src/controllers/base.go" />
       </list>
     </option>
   </component>
@@ -107,10 +122,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="67" />
-    <option name="y" value="27" />
-    <option name="width" value="1681" />
-    <option name="height" value="970" />
+    <option name="y" value="61" />
+    <option name="width" value="1440" />
+    <option name="height" value="797" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -120,7 +134,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -131,26 +144,18 @@
             <path>
               <item name="bc-cms" type="b2602c69:ProjectViewProjectNode" />
               <item name="bc-cms" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bc-cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bc-cms" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bc-cms" type="b2602c69:ProjectViewProjectNode" />
               <item name="bc-cms" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bc-cms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bc-cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="gmysql" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bc-cms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bc-cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="conf" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bc-cms" type="b2602c69:ProjectViewProjectNode" />
@@ -160,6 +165,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -212,10 +218,10 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="27" width="1681" height="970" extended-state="0" />
+    <frame x="0" y="61" width="1440" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2556437" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25894135" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" />
@@ -223,7 +229,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3297619" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3297619" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.35857144" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -246,54 +252,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="23" lean-forward="true" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
-          <folding>
-            <element signature="e#14#67#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/setting/setting.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#17#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/e/code.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/get-lib-list.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/e/code.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/go/src/os/error_unix.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -322,20 +280,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/goWork/src/github.com/go-ini/ini/file.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/goWork/src/github.com/go-ini/ini/ini.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="196" column="57" lean-forward="true" selection-start-line="196" selection-start-column="57" selection-end-line="196" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/goWork/src/github.com/go-ini/ini/file.go" />
+    <entry file="file://$USER_HOME$/goWork/src/github.com/go-ini/ini/ini.go" />
     <entry file="file:///usr/local/go/src/fmt/print.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -354,36 +300,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
           <caret line="79" column="5" lean-forward="true" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
-          <folding>
-            <element signature="e#14#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fatal_2019-01-13.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/conf/pro.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/conf/dev.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="13" selection-start-line="14" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/fatal_2019-01-13.log" />
     <entry file="file:///usr/local/go/src/log/log.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
           <caret line="31" column="49" lean-forward="true" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="49" />
-          <folding>
-            <element signature="e#842#898#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -394,20 +318,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/debug_2019-01-13.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/debug_2019-01-13.log" />
     <entry file="file://$PROJECT_DIR$/src/com/logging/log.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-711">
@@ -418,33 +329,284 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/setting/setting.go">
+    <entry file="file://$PROJECT_DIR$/src/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="68" column="1" lean-forward="true" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
+        <state relative-caret-position="144">
+          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/JWTtoken.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="27" column="15" lean-forward="true" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
           <folding>
-            <element signature="e#17#58#0" expanded="true" />
+            <element signature="e#16#63#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.go">
+    <entry file="file://$USER_HOME$/gopath/src/github.com/dgrijalva/jwt-go/claims.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        <state relative-caret-position="-31">
+          <caret line="40" column="32" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/gopath/src/github.com/dgrijalva/jwt-go/token.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/gopath/src/github.com/dgrijalva/jwt-go/map_claims.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/testing/testing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="514" column="5" selection-start-line="514" selection-start-column="5" selection-end-line="514" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/te.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-79">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
           <folding>
-            <element signature="e#14#67#0" expanded="true" />
+            <element signature="e#14#40#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/token_b_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/note">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/encrypt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1062">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+          <folding>
+            <element signature="e#14#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/base.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/key/key.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="29" lean-forward="true" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/conf/pro.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/conf/dev.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/gopath/src/github.com/dgrijalva/jwt-go/errors.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/token_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/gopath/src/github.com/gin-gonic/gin/context.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/middlerware/jwt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#21#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/middlerware/logger.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <element signature="e#21#67#0" expanded="true" />
+            <element signature="e#30#35#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/middlerware/cors.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#21#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/token.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="46" column="40" lean-forward="true" selection-start-line="46" selection-start-column="40" selection-end-line="46" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gmysql/mysql.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
+        <state relative-caret-position="311">
+          <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/e/code.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/context.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
           <folding>
-            <element signature="e#16#49#0" expanded="true" />
+            <element signature="e#21#68#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/setting/setting.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/link/link.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/link/base.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/post/post.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/post/base.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/term/base.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/term/tag.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/upload/upload.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="14" selection-start-column="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/user/user.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/term/menu.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/db/base.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="10" selection-start-column="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routers/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/base.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
         </state>
       </provider>
     </entry>
