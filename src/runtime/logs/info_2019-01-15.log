@@ -162,3 +162,30 @@
 ]
 [info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 16:53:25 [[StartTime] 2019-01-15 16:53:25.888858 +0800 CST m=+20.765007246 [IP] 127.0.0.1 [Path] /v1/user/login [Method] POST [LtcyTime] 888.369µs [StatusCode] 400 [ErrorInfo] 
 ]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:05:24 [[StartTime] 2019-01-15 17:05:24.980485 +0800 CST m=+5.064774912 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 456.095µs [StatusCode] 200 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:15:05 [[StartTime] 2019-01-15 17:15:05.17944 +0800 CST m=+585.246305637 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 56.708µs [StatusCode] 200 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:15:13 [[StartTime] 2019-01-15 17:15:13.32567 +0800 CST m=+2.648631527 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 394.37µs [StatusCode] 200 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:23:57 [[StartTime] 2019-01-15 17:23:57.352775 +0800 CST m=+526.670416097 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 153.094µs [StatusCode] 400 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:24:29 [[StartTime] 2019-01-15 17:24:29.5055 +0800 CST m=+558.822349644 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 220.012µs [StatusCode] 200 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:26:55 [[StartTime] 2019-01-15 17:26:55.644054 +0800 CST m=+704.957307826 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 31.202µs [StatusCode] 400 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:27:31 [[StartTime] 2019-01-15 17:27:31.764163 +0800 CST m=+3.026292070 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 415.824µs [StatusCode] 200 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:30:08 [[StartTime] 2019-01-15 17:30:08.532613 +0800 CST m=+5.880181407 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 418.438µs [StatusCode] 200 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:32:10 [[StartTime] 2019-01-15 17:32:10.204962 +0800 CST m=+3.126839867 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 2.355483ms [StatusCode] 400 [ErrorInfo] Error #01: Key: 'RegisterInfo.UserPass' Error:Field validation for 'UserPass' failed on the 'required' tag
+Key: 'RegisterInfo.UserNicename' Error:Field validation for 'UserNicename' failed on the 'required' tag
+Key: 'RegisterInfo.UserEmail' Error:Field validation for 'UserEmail' failed on the 'required' tag
+
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:34:33 [[StartTime] 2019-01-15 17:34:33.695898 +0800 CST m=+146.591687465 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 4.36µs [StatusCode] 200 [ErrorInfo] 
+]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/15 17:34:49 [[StartTime] 2019-01-15 17:34:49.075697 +0800 CST m=+3.550420136 [IP] 127.0.0.1 [Path] /v1/user/register [Method] POST [LtcyTime] 2.200218ms [StatusCode] 400 [ErrorInfo] Error #01: Key: 'RegisterInfo.UserEmail' Error:Field validation for 'UserEmail' failed on the 'required' tag
+Key: 'RegisterInfo.UserNicename' Error:Field validation for 'UserNicename' failed on the 'required' tag
+
+]

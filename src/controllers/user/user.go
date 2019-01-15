@@ -9,7 +9,16 @@ import (
 	"com/logging"
 	"utils"
 	"com/setting"
+	"github.com/gin-gonic/gin/binding"
 )
+
+//注册
+type RegisterInfo struct {
+	UserLogin    string `json:"user_login" form:"user_login" binding:"required"` //中间用空格隔开千万不要用 逗号
+	UserPass     string `json:"user_pass" form:"user_pass" binding:"required"`
+	UserNicename string `json:"user_nicename" form:"user_nicename" binding:"required"`
+	UserEmail    string `json:"user_email" form:"user_email" binding:"required"`
+}
 
 //登录路由
 func Login(c *gin.Context) {
@@ -79,10 +88,32 @@ func Login(c *gin.Context) {
 //注册路由
 func Register(c *gin.Context) {
 	ctx := controllers.Context{c}
+	regInfo := &RegisterInfo{}
 	if ctx.ContentType() == "application/x-www-form-urlencoded" {
-
+		err := ctx.MustBindWith(regInfo, binding.Form)
+		if err != nil {
+			logging.Error(err)
+			ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+			return
+		}
+	} else if ctx.ContentType() == "application/json" {
+		err := ctx.BindJSON(regInfo)
+		if err != nil {
+			logging.Error(err)
+			ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+			return
+		}
 	} else {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 		return
 	}
+	//数据插入
+	res, err := gmysql.Con.Exec("INSERT INTO bc_users (user_login,user_pass,user_nicename,user_email) "+
+		"VALUES (?,?,?,?) ", regInfo.UserLogin, regInfo.UserPass, regInfo.UserNicename,regInfo.UserEmail)
+	if err!=nil {
+		ctx.Response(http.StatusInternalServerError,e.)
+	}
+
+
+
 }

@@ -7,7 +7,6 @@ const (
 	ERROR          = 500 //fail
 	INVALID_PARAMS = 400 //请求错误
 
-
 	//标签类错误
 	ERROR_EXIST_TAG       = 10001 //已存在该标签名称
 	ERROR_EXIST_TAG_FAIL  = 10002 //获取已存在标签失败
@@ -32,8 +31,9 @@ const (
 	ERROR_NOT_EXIST_COMMENT = 10020
 
 	//用户类错误
-	ERROR_EXITS_USER        = 10030 //用户名或密码错误
-	ERROR_EXITS_USER_REPEAT = 10031 //用户信息重复
+	ERROR_EXITS_USER          = 10030 //用户名或密码错误
+	ERROR_EXITS_USER_REPEAT   = 10031 //用户信息重复
+	ERROR_EXITS_REGISTER_USER = 10032 //用户已存在
 	//验证类错误
 	ERROR_AUTH_CHECK_TOKEN_FAIL    = 20001 //Token鉴权失败
 	ERROR_AUTH_CHECK_TOKEN_TIMEOUT = 20002 //Token已过期
@@ -64,25 +64,26 @@ var MsgFlags = map[int]string{
 	ERROR_EDIT_TAG_FAIL:   "修改标签失败",
 	ERROR_DELETE_TAG_FAIL: "删除标签失败",
 
-	ERROR_EXITS_USER:        "用户名或密码错误",
-	ERROR_EXITS_USER_REPEAT: "用户信息重复",
+	ERROR_EXITS_USER:          "用户名或密码错误",
+	ERROR_EXITS_USER_REPEAT:   "用户信息重复",
+	ERROR_EXITS_REGISTER_USER: "用户已存在",
 
-	ERROR_NOT_EXIST_ARTICLE:         "该文章不存在",
-	ERROR_ADD_ARTICLE_FAIL:          "新增文章失败",
-	ERROR_DELETE_ARTICLE_FAIL:       "删除文章失败",
-	ERROR_CHECK_EXIST_ARTICLE_FAIL:  "检查文章是否存在失败",
-	ERROR_EDIT_ARTICLE_FAIL:         "修改文章失败",
-	ERROR_COUNT_ARTICLE_FAIL:        "统计文章失败",
-	ERROR_GET_ARTICLES_FAIL:         "获取多个文章失败",
-	ERROR_GET_ARTICLE_FAIL:          "获取单个文章失败",
-	ERROR_GEN_ARTICLE_POSTER_FAIL:   "生成文章海报失败",
+	ERROR_NOT_EXIST_ARTICLE:        "该文章不存在",
+	ERROR_ADD_ARTICLE_FAIL:         "新增文章失败",
+	ERROR_DELETE_ARTICLE_FAIL:      "删除文章失败",
+	ERROR_CHECK_EXIST_ARTICLE_FAIL: "检查文章是否存在失败",
+	ERROR_EDIT_ARTICLE_FAIL:        "修改文章失败",
+	ERROR_COUNT_ARTICLE_FAIL:       "统计文章失败",
+	ERROR_GET_ARTICLES_FAIL:        "获取多个文章失败",
+	ERROR_GET_ARTICLE_FAIL:         "获取单个文章失败",
+	ERROR_GEN_ARTICLE_POSTER_FAIL:  "生成文章海报失败",
 
 
-	ERROR_AUTH_CHECK_TOKEN_FAIL:     "Token鉴权失败",
-	ERROR_AUTH_CHECK_TOKEN_TIMEOUT:  "Token已过期",
-	ERROR_AUTH_TOKEN:                "Token生成失败",
-	ERROR_AUTH_GET_USER_FAIL:        "Token获取用户失败",
-	ERROR_AUTH:                      "Token错误",
+	ERROR_AUTH_CHECK_TOKEN_FAIL:    "Token鉴权失败",
+	ERROR_AUTH_CHECK_TOKEN_TIMEOUT: "Token已过期",
+	ERROR_AUTH_TOKEN:               "Token生成失败",
+	ERROR_AUTH_GET_USER_FAIL:       "Token获取用户失败",
+	ERROR_AUTH:                     "Token错误",
 
 	ERROR_UPLOAD_SAVE_IMAGE_FAIL:    "保存图片失败",
 	ERROR_UPLOAD_CHECK_IMAGE_FAIL:   "检查图片失败",
