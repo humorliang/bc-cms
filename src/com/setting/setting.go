@@ -51,7 +51,7 @@ func SetUp(mode *string) {
 	} else {
 		cfg, err = ini.Load("conf/dev.ini")
 		if err != nil {
-			log.Fatalf("setting load file ‘conf/pro.ini’ error:%s", err)
+			log.Fatalf("setting load file ‘conf/dev.ini’ error:%s", err)
 		}
 	}
 	sectionToMap("app", AppSetting)

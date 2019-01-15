@@ -3,6 +3,7 @@ package gmysql
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql" //mysql数据库连接驱动
 	"com/logging"
 	"com/setting"
 )

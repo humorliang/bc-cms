@@ -74,7 +74,7 @@ func MustOpenSrc(fileName string, fileDir string) (*os.File, error) {
 		return nil, fmt.Errorf("mkdir is error:%s", err)
 	}
 	//打开文件流
-	f, err := OpenCreateAppend(fileName)
+	f, err := OpenCreateAppend(src+fileName)
 	if err != nil {
 		return nil, fmt.Errorf("open file error:%s", err)
 	}

@@ -2,10 +2,12 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"com/setting"
 	"com/gmysql"
+	"routers"
+	"middlerware"
+	"strconv"
 )
 
 func main() {
@@ -17,7 +19,13 @@ func main() {
 	setting.SetUp(mode)
 	//数据库初始化
 	gmysql.SetUp()
+
 	//创建router对象
 	router := gin.New()
-	fmt.Println(router)
+	//注册中间件
+	router.Use(middlerware.Logger())
+	router.Use(gin.Recovery())
+	//注册路由
+	routers.SetUp(router)
+	router.Run(":" + strconv.Itoa(setting.ServerSetting.HttpPort))
 }

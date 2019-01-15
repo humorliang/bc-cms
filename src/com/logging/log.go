@@ -61,7 +61,7 @@ func Info(v ...interface{}) {
 		log.Fatalf("info log open file is error:%s", err)
 	}
 	logger.SetOutput(f)
-	setPrefix("fatal")
+	setPrefix("info")
 	logger.SetFlags(log.LstdFlags)
 	logger.Println(v)
 }
@@ -73,7 +73,7 @@ func Warn(v ...interface{}) {
 		log.Fatalf("warn log open file is error:%s", err)
 	}
 	logger.SetOutput(f)
-	setPrefix("fatal")
+	setPrefix("warn")
 	logger.SetFlags(log.LstdFlags)
 	logger.Println(v)
 }
