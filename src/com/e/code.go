@@ -34,6 +34,7 @@ const (
 	ERROR_EXITS_USER          = 10030 //用户名或密码错误
 	ERROR_EXITS_USER_REPEAT   = 10031 //用户信息重复
 	ERROR_EXITS_REGISTER_USER = 10032 //用户已存在
+	ERROR_USERS               = 10033 //获取用户列表失败
 	//验证类错误
 	ERROR_AUTH_CHECK_TOKEN_FAIL    = 20001 //Token鉴权失败
 	ERROR_AUTH_CHECK_TOKEN_TIMEOUT = 20002 //Token已过期
@@ -67,6 +68,7 @@ var MsgFlags = map[int]string{
 	ERROR_EXITS_USER:          "用户名或密码错误",
 	ERROR_EXITS_USER_REPEAT:   "用户信息重复",
 	ERROR_EXITS_REGISTER_USER: "用户已存在",
+	ERROR_USERS:               "获取用户列表失败",
 
 	ERROR_NOT_EXIST_ARTICLE:        "该文章不存在",
 	ERROR_ADD_ARTICLE_FAIL:         "新增文章失败",

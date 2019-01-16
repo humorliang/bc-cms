@@ -16,6 +16,7 @@ func SetUp(r *gin.Engine) {
 	rV1.POST("/user/register", user.Register)
 
 	//后台API
-	//rV1Admin := rV1.Group("/admin", middleware.JWTAuth())
+	rV1Admin := rV1.Group("/admin")
+	rV1Admin.GET("/users", user.GetUsers)
 
 }

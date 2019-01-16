@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"com/gmysql"
+	"fmt"
+	"db"
+)
 
 func main() {
 	//t := time.Now().Format("2006-01-02 15:04:05")
@@ -26,8 +30,13 @@ func main() {
 	//fmt.Println(claims)
 	//a:=[]interface{}{1,"2",&jwtKey}
 	//fmt.Println(a)
-	var a []interface{}
-	a= append(a, 1)
-	a= append(a, 2)
-	fmt.Println(a)
+	rows, err := gmysql.Con.Query("select user_id,user_login from bc_user where user_login='u1' ")
+	if err != nil {
+		fmt.Println(err)
+	}
+	rs, err := db.Querys(rows)
+	if err!=nil {
+		fmt.Println(err)
+	}
+	fmt.Println(rs)
 }

@@ -8,9 +8,12 @@ import (
 
 //app结构体
 type App struct {
-	RuntimePath string
-	LogPath     string
-	JwtKey      string
+	RuntimePath     string
+	LogPath         string
+	JwtKey          string
+	UserPageSize    int64
+	PostPageSize    int64
+	CommentPageSize int64
 }
 
 //server结构体
