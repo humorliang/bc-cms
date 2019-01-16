@@ -18,5 +18,5 @@ func SetUp(r *gin.Engine) {
 	//后台API
 	rV1Admin := rV1.Group("/admin")
 	rV1Admin.GET("/users", user.GetUsers)
-
+	rV1Admin.DELETE("/user",user.DelUser)
 }

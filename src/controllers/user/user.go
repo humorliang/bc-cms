@@ -187,3 +187,10 @@ func GetUsers(c *gin.Context) {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 	}
 }
+
+//删除冻结用户
+func DelUser(c *gin.Context) {
+	ctx := controllers.Context{c}
+	var userId controllers.User
+
+}
