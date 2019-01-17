@@ -3,12 +3,16 @@ package db
 import (
 	"database/sql"
 	"com/logging"
+	"com/gmysql"
 )
 
-//信息结构体
-type QueryInfo struct {
-	info map[string]interface{}
+//定义结果类型
+type RowsInfo struct {
+	rowsId  int64
+	rowsNum int64
 }
+
+//查询影响条数
 
 //查询获取多个字段值
 func Querys(rows *sql.Rows) ([]map[string]interface{}, error) {
@@ -29,7 +33,10 @@ func Querys(rows *sql.Rows) ([]map[string]interface{}, error) {
 		for i := 0; i < count; i++ {
 			valuePtrs[i] = &values[i]
 		}
-		rows.Scan(valuePtrs...)
+		err := rows.Scan(valuePtrs...)
+		if err != nil {
+			return nil, err
+		}
 		//要写入的数据
 		entry := make(map[string]interface{})
 		for i, col := range columns {
@@ -91,4 +98,31 @@ func TranscationQuerys(tx *sql.Tx, querySqls ...string) (map[int][]map[string]in
 		return nil, err
 	}
 	return txs, nil
+}
+
+//查询删除插入更新操作
+//返回影响的行数
+func QRUDExec(sqlStr string, args ...interface{}) (affectNum int64, affectId int64, err error) {
+	//自动释放链接
+	result, err := gmysql.Con.Exec(sqlStr, args...)
+	if err != nil {
+		return 0, 0, err
+	} else {
+		affectNum, err = result.RowsAffected()
+		affectId, err = result.LastInsertId()
+		if err != nil {
+			return 0, 0, err
+		}
+		return affectNum, affectId, nil
+	}
+}
+
+//事务执行语句
+func TxQrudExce(tx *sql.Tx, querySqls ...string) (map[int][]map[string]interface{}, error) {
+
+	for i := 0; i < len(querySqls); i++ {
+		var rInfo RowsInfo
+
+	}
+
 }

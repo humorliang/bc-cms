@@ -26,7 +26,7 @@ func Logger() gin.HandlerFunc {
 		errorMsg := c.Errors.String()
 		raw := c.Request.URL.RawQuery
 		if raw != "" {
-			path = urlPath + raw
+			path = urlPath + "?" + raw
 		} else {
 			path = urlPath
 		}

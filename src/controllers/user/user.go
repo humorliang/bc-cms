@@ -20,6 +20,9 @@ type LoginInfo struct {
 	UserPass  string `json:"user_pass" form:"user_pass" binding:"required"`
 	AuthCode  string `json:"auth_code" form:"auth_code"`
 }
+type UserId struct {
+	UserId int `json:"user_id" binding:"required"`
+}
 
 //注册
 type RegisterInfo struct {
@@ -160,14 +163,13 @@ func GetUsers(c *gin.Context) {
 	ctx := controllers.Context{c}
 	var pageNum controllers.PageNum
 	if err := ctx.ShouldBindQuery(&pageNum); err == nil {
-		//开启一个事务
 		pageSize := setting.AppSetting.UserPageSize
 		offsetSize := (pageNum.PageNum - 1) * pageSize
+		//开启一个事务
 		tx, err := gmysql.Con.Begin()
 		sql1 := fmt.Sprintf("SELECT user_id,user_nicename,user_email,"+
 			"user_registered,user_status FROM bc_users Limit %d,%d",
 			offsetSize, pageSize)
-		fmt.Println(sql1)
 		resList, err := db.TranscationQuerys(tx,
 			sql1, "SELECT FOUND_ROWS() AS row_counts")
 		if err != nil {
@@ -191,6 +193,20 @@ func GetUsers(c *gin.Context) {
 //删除冻结用户
 func DelUser(c *gin.Context) {
 	ctx := controllers.Context{c}
-	var userId controllers.User
-
+	var user UserId
+	if err := ctx.BindJSON(&user); err != nil {
+		ctx.Response(http.StatusBadRequest, e.ERROR_EXITS_SUPER_USER, "")
+	} else {
+		//数据操作
+		res, _, err := db.QRUDExec("DELETE FROM bc_users WHERE user_id=?", user.UserId)
+		if err != nil || res == 0 {
+			if res == 0 {
+				ctx.Response(http.StatusInternalServerError, e.ERROR_NOT_USER, "")
+			} else {
+				ctx.Response(http.StatusInternalServerError, e.ERROR_DELETE_USER_FAIL, "")
+			}
+		} else {
+			ctx.Response(http.StatusOK, e.SUCCESS, "删除成功")
+		}
+	}
 }

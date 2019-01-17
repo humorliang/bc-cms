@@ -25,6 +25,7 @@ func main() {
 	//注册中间件
 	router.Use(middlerware.Logger())
 	router.Use(gin.Recovery())
+	router.Use(middlerware.NotFoundPage())
 	//注册路由
 	routers.SetUp(router)
 	router.Run(":" + strconv.Itoa(setting.ServerSetting.HttpPort))

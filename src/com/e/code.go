@@ -17,6 +17,9 @@ const (
 	ERROR_EDIT_TAG_FAIL   = 10007 //修改标签失败
 	ERROR_DELETE_TAG_FAIL = 10008 //删除标签失败
 
+	//分类错误
+	ERROR_TAXONOMY_TERM_FAIL = 11001 //添加分类失败
+
 	//文章类错误
 	ERROR_NOT_EXIST_ARTICLE        = 10011 //该文章不存在
 	ERROR_CHECK_EXIST_ARTICLE_FAIL = 10012 //检查文章是否存在失败
@@ -35,6 +38,10 @@ const (
 	ERROR_EXITS_USER_REPEAT   = 10031 //用户信息重复
 	ERROR_EXITS_REGISTER_USER = 10032 //用户已存在
 	ERROR_USERS               = 10033 //获取用户列表失败
+	ERROR_DELETE_USER_FAIL    = 10034 //删除用户失败
+	ERROR_NOT_USER            = 10035 //用户不存在
+	ERROR_EXITS_SUPER_USER    = 10036 //超级管理员不能删除
+
 	//验证类错误
 	ERROR_AUTH_CHECK_TOKEN_FAIL    = 20001 //Token鉴权失败
 	ERROR_AUTH_CHECK_TOKEN_TIMEOUT = 20002 //Token已过期
@@ -65,18 +72,25 @@ var MsgFlags = map[int]string{
 	ERROR_EDIT_TAG_FAIL:   "修改标签失败",
 	ERROR_DELETE_TAG_FAIL: "删除标签失败",
 
+	ERROR_TAXONOMY_TERM_FAIL: "添加分类失败",
+
+
 	ERROR_EXITS_USER:          "用户名或密码错误",
 	ERROR_EXITS_USER_REPEAT:   "用户信息重复",
 	ERROR_EXITS_REGISTER_USER: "用户已存在",
 	ERROR_USERS:               "获取用户列表失败",
+	ERROR_DELETE_USER_FAIL:    "删除用户失败",
+	ERROR_NOT_USER:            "用户不存在",
+	ERROR_EXITS_SUPER_USER:    "超级管理员不能删除",
+
 
 	ERROR_NOT_EXIST_ARTICLE:        "该文章不存在",
 	ERROR_ADD_ARTICLE_FAIL:         "新增文章失败",
 	ERROR_DELETE_ARTICLE_FAIL:      "删除文章失败",
 	ERROR_CHECK_EXIST_ARTICLE_FAIL: "检查文章是否存在失败",
-	ERROR_EDIT_ARTICLE_FAIL:        "修改文章失败",
+	ERROR_EDIT_ARTICLE_FAIL:        "编辑文章失败",
 	ERROR_COUNT_ARTICLE_FAIL:       "统计文章失败",
-	ERROR_GET_ARTICLES_FAIL:        "获取多个文章失败",
+	ERROR_GET_ARTICLES_FAIL:        "获取文章列表失败",
 	ERROR_GET_ARTICLE_FAIL:         "获取单个文章失败",
 	ERROR_GEN_ARTICLE_POSTER_FAIL:  "生成文章海报失败",
 
