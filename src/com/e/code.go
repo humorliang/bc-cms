@@ -19,6 +19,9 @@ const (
 
 	//分类错误
 	ERROR_TAXONOMY_TERM_FAIL = 11001 //添加分类失败
+	ERROR_GET_TAXONOMYS      = 11002 //获取全部分类失败
+	ERROR_GET_TAXONOMY       = 11003 //获取相关分类失败
+	ERROR_DELETE_TERM        = 11004 //删除分类失败
 
 	//文章类错误
 	ERROR_NOT_EXIST_ARTICLE        = 10011 //该文章不存在
@@ -31,7 +34,8 @@ const (
 	ERROR_GET_ARTICLE_FAIL         = 10018 //获取单个文章失败
 	ERROR_GEN_ARTICLE_POSTER_FAIL  = 10019 //生成文章海报失败
 	//评论类错误
-	ERROR_NOT_EXIST_COMMENT = 10020
+	ERROR_ADD_COMMENT_FAIL = 10020 //添加评论失败
+	ERROR_GET_COMMENTS     = 10021 //获取评论失败
 
 	//用户类错误
 	ERROR_EXITS_USER          = 10030 //用户名或密码错误
@@ -73,6 +77,12 @@ var MsgFlags = map[int]string{
 	ERROR_DELETE_TAG_FAIL: "删除标签失败",
 
 	ERROR_TAXONOMY_TERM_FAIL: "添加分类失败",
+	ERROR_GET_TAXONOMYS:      "获取全部分类失败",
+	ERROR_GET_TAXONOMY:       "获取相关分类失败",
+	ERROR_DELETE_TERM:        "删除分类失败",
+
+	ERROR_ADD_COMMENT_FAIL: "添加评论失败",
+	ERROR_GET_COMMENTS:     "获取评论失败",
 
 
 	ERROR_EXITS_USER:          "用户名或密码错误",

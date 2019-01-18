@@ -64,7 +64,7 @@ func AdminAddPost(c *gin.Context) {
 	}
 }
 
-//获取文章
+//获取文章  bug post_id类型bug 添加？
 func AdminGETPost(c *gin.Context) {
 	ctx := controllers.Context{c}
 	var pageNum controllers.PageNum
@@ -191,4 +191,3 @@ func AdminDeletePost(c *gin.Context) {
 		}
 	}
 }
-

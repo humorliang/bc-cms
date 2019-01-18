@@ -5,6 +5,7 @@ import (
 	"controllers/user"
 	"controllers/post"
 	"controllers/term"
+	"controllers/comment"
 )
 
 //路由初始化
@@ -24,11 +25,19 @@ func SetUp(r *gin.Engine) {
 	rV1Admin.DELETE("/user", user.DelUser)
 	//文章操作
 	rV1Admin.POST("/post", post.AdminAddPost)
-	rV1Admin.GET("/posts",post.AdminGETPost)
-	rV1Admin.PUT("/post/title",post.AdminEditTitlePost)
-	rV1Admin.PUT("/post/status",post.AdminEditStatusPost)
-	rV1Admin.PUT("/post/comment/status",post.AdminEditCommentStatusPost)
-	rV1Admin.DELETE("/post",post.AdminDeletePost)
+	rV1Admin.GET("/posts", post.AdminGETPost)
+	rV1Admin.PUT("/post/title", post.AdminEditTitlePost)
+	rV1Admin.PUT("/post/status", post.AdminEditStatusPost)
+	rV1Admin.PUT("/post/comment/status", post.AdminEditCommentStatusPost)
+	rV1Admin.DELETE("/post", post.AdminDeletePost)
 	//分类操作
-	rV1Admin.POST("/taxonomy/term",term.AdminAddTaxonomyTerm)
+	rV1Admin.POST("/taxonomy/term", term.AdminAddTaxonomyTerm)
+	rV1Admin.GET("/taxonomys/term", term.AdminGetTaxonomys)
+	rV1Admin.GET("/taxonomy/term", term.AdminGetTaxonomy)
+	rV1Admin.DELETE("/taxonomy/term", term.AdminDelTaxonomy)
+	//评论操作
+	rV1Admin.GET("/comments", comment.AdminGetComments)
+
+	//界面API
+	rV1.POST("/comment", comment.AddComment)
 }

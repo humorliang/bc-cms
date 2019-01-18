@@ -12,8 +12,6 @@ type RowsInfo struct {
 	rowsNum int64
 }
 
-//查询影响条数
-
 //查询获取多个字段值
 func Querys(rows *sql.Rows) ([]map[string]interface{}, error) {
 	//获取查询的列
@@ -21,6 +19,16 @@ func Querys(rows *sql.Rows) ([]map[string]interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+	//types, err := rows.ColumnTypes()
+	//for _, v := range types {
+	//	fmt.Println("--------------")
+	//	fmt.Println(v.Name())
+	//	//fmt.Println(v.DatabaseTypeName())
+	//	fmt.Printf("%#v",v.ScanType().Name())
+	//	//fmt.Println(v.ScanType().String())
+	//	//fmt.Println(v.Nullable())
+	//	fmt.Println("--------------")
+	//}
 	//长度
 	count := len(columns)
 	tableData := make([]map[string]interface{}, 0)
@@ -55,6 +63,7 @@ func Querys(rows *sql.Rows) ([]map[string]interface{}, error) {
 		}
 		tableData = append(tableData, entry)
 	}
+
 	return tableData, nil
 }
 
@@ -117,12 +126,18 @@ func QRUDExec(sqlStr string, args ...interface{}) (affectNum int64, affectId int
 	}
 }
 
-//事务执行语句
-func TxQrudExce(tx *sql.Tx, querySqls ...string) (map[int][]map[string]interface{}, error) {
-
-	for i := 0; i < len(querySqls); i++ {
-		var rInfo RowsInfo
-
+//事务的操作
+func TxQRUDExec(tx *sql.Tx, sqlStr string, args ...interface{}) (num int64, id int64, err error) {
+	//自动释放链接
+	result, err := tx.Exec(sqlStr, args...)
+	if err != nil {
+		return 0, 0, err
+	} else {
+		num, err = result.RowsAffected()
+		id, err = result.LastInsertId()
+		if err != nil {
+			return 0, 0, err
+		}
+		return num, id, nil
 	}
-
 }

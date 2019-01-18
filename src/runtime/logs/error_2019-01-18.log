@@ -1,0 +1,16 @@
+[error][/Users/datatist001/bc-cms/src/controllers/term/taxonomy.go:95]2019/01/18 15:26:27 [EOF]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:28]2019/01/18 16:24:32 [Key: 'CommentInfo.CommentParentId' Error:Field validation for 'CommentParentId' failed on the 'required' tag
+Key: 'CommentInfo.CommentPostId' Error:Field validation for 'CommentPostId' failed on the 'required' tag]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:28]2019/01/18 16:25:39 [Key: 'CommentInfo.CommentPostId' Error:Field validation for 'CommentPostId' failed on the 'required' tag
+Key: 'CommentInfo.CommentParentId' Error:Field validation for 'CommentParentId' failed on the 'required' tag]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:28]2019/01/18 16:26:54 [Key: 'CommentInfo.CommentParentId' Error:Field validation for 'CommentParentId' failed on the 'required' tag
+Key: 'CommentInfo.CommentPostId' Error:Field validation for 'CommentPostId' failed on the 'required' tag]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:26]2019/01/18 16:31:30 [Key: 'CommentInfo.CommentParentId' Error:Field validation for 'CommentParentId' failed on the 'required' tag
+Key: 'CommentInfo.CommentPostId' Error:Field validation for 'CommentPostId' failed on the 'required' tag]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:26]2019/01/18 16:32:51 [Key: 'CommentInfo.CommentParentId' Error:Field validation for 'CommentParentId' failed on the 'required' tag
+Key: 'CommentInfo.CommentPostId' Error:Field validation for 'CommentPostId' failed on the 'required' tag]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:26]2019/01/18 16:33:40 [Key: 'CommentInfo.CommentParentId' Error:Field validation for 'CommentParentId' failed on the 'required' tag]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:44]2019/01/18 16:40:43 [Error 1054: Unknown column 'comment_parent_id' in 'field list']
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:91]2019/01/18 17:03:21 [Key: 'PageNum.PageNum' Error:Field validation for 'PageNum' failed on the 'required' tag]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:91]2019/01/18 17:03:51 [Key: 'PageNum.PageNum' Error:Field validation for 'PageNum' failed on the 'required' tag]
+[error][/Users/datatist001/bc-cms/src/controllers/comment/comment.go:91]2019/01/18 17:05:50 [EOF]
