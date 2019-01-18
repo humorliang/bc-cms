@@ -36,6 +36,7 @@ const (
 	//评论类错误
 	ERROR_ADD_COMMENT_FAIL = 10020 //添加评论失败
 	ERROR_GET_COMMENTS     = 10021 //获取评论失败
+	ERROR_EDIT_COMMENT     = 10022 //编辑评论失败
 
 	//用户类错误
 	ERROR_EXITS_USER          = 10030 //用户名或密码错误
@@ -83,6 +84,7 @@ var MsgFlags = map[int]string{
 
 	ERROR_ADD_COMMENT_FAIL: "添加评论失败",
 	ERROR_GET_COMMENTS:     "获取评论失败",
+	ERROR_EDIT_COMMENT:     "编辑评论失败",
 
 
 	ERROR_EXITS_USER:          "用户名或密码错误",

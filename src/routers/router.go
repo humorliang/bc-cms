@@ -37,6 +37,7 @@ func SetUp(r *gin.Engine) {
 	rV1Admin.DELETE("/taxonomy/term", term.AdminDelTaxonomy)
 	//评论操作
 	rV1Admin.GET("/comments", comment.AdminGetComments)
+	rV1Admin.POST("/comment", comment.AdminEditComment)
 
 	//界面API
 	rV1.POST("/comment", comment.AddComment)

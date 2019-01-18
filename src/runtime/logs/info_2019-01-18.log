@@ -150,3 +150,5 @@ Key: 'CommentInfo.CommentPostId' Error:Field validation for 'CommentPostId' fail
 ]
 [info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/18 17:06:03 [[StartTime] 2019-01-18 17:06:03.012531 +0800 CST m=+3.697248173 [IP] 127.0.0.1 [Path] /v1/admin/comments?page_num=1 [Method] GET [LtcyTime] 8.556783ms [StatusCode] 500 [ErrorInfo] 
 ]
+[info][/Users/datatist001/bc-cms/src/middlerware/logger.go:37]2019/01/18 17:36:57 [[StartTime] 2019-01-18 17:36:57.141277 +0800 CST m=+5.024440011 [IP] 127.0.0.1 [Path] /v1/admin/comments?page_num=1 [Method] GET [LtcyTime] 4.766828ms [StatusCode] 200 [ErrorInfo] 
+]

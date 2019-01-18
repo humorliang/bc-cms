@@ -8,7 +8,6 @@ import (
 	"com/e"
 	"db"
 	"com/gmysql"
-	"fmt"
 	"com/setting"
 )
 
@@ -17,8 +16,12 @@ type CommentInfo struct {
 	CommentAuthor      string `json:"comment_author" binding:"required"`
 	CommentAuthorEmail string `json:"comment_author_email" binding:"required"`
 	CommentContent     string `json:"comment_content" binding:"required"`
-	CommentParentId    int    `json:"comment_parent_id"`
-	CommentPostId      int    `json:"comment_post_id" binding:"required"`
+	CommentParentId    int64    `json:"comment_parent_id"`
+	CommentPostId      int64   `json:"comment_post_id" binding:"required"`
+}
+type CommentEdit struct {
+	CommentId       int64 `json:"comment_id" binding:"required"`
+	CommentApproved int64 `json:"comment_approved" binding:"required"`
 }
 
 //添加留言或者评论
@@ -67,28 +70,67 @@ func AdminGetComments(c *gin.Context) {
 		offsetSize := (pageNum.PageNum - 1) * pageSize
 		//开启一个事务
 		tx, err := gmysql.Con.Begin()
-		sql1 := fmt.Sprintf("SELECT comment_id,comment_post_id,post_title,"+
+		rows, err := tx.Query("SELECT comment_id,comment_post_id,post_title,"+
 			"comment_author,comment_author_IP,comment_content,comment_date,comment_approved"+
 			" FROM bc_comments c,bc_posts p "+
-			"WHERE c.comment_post_id=p.post_id AND ?=? Limit %d,%d",
-			offsetSize, pageSize)
-		resList, err := db.TranscationQuerys(tx,
-			sql1, "SELECT FOUND_ROWS() AS row_counts")
-
+			"WHERE c.comment_post_id=p.post_id AND 1=? Limit ?,?",
+			1, offsetSize, pageSize)
 		if err != nil {
+			tx.Rollback()
 			logging.Error(err)
-			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_COMMENTS, "")
+			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
 			return
 		}
-		commentInfo := resList[0]
-		comments := resList[1]
+		//查询数据
+		data, err := db.Querys(rows)
+		if err != nil {
+			tx.Rollback()
+			logging.Error(err)
+			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+			return
+		}
+		//查询数量
+		rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts WHERE 1=?", 1)
+		if err != nil {
+			tx.Rollback()
+			logging.Error(err)
+			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+			return
+		}
+		data2, err := db.Querys(rows2)
+		if err != nil {
+			tx.Rollback()
+			logging.Error(err)
+			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+			return
+		}
+		//提交事务
+		if err := tx.Commit(); err != nil {
+			tx.Rollback()
+			logging.Error(err)
+			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+			return
+		}
 		ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
-			"user_total": comments[0]["row_counts"],
+			"user_total": data2[0]["row_counts"],
 			"page_num":   pageNum.PageNum,
-			"user_list":  commentInfo,
+			"user_list":  data,
 		})
 	} else {
 		logging.Error(err)
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 	}
+}
+
+//编辑评论状态
+func AdminEditComment(c *gin.Context) {
+	ctx := controllers.Context{c}
+	var cEdit CommentEdit
+	if err := ctx.BindJSON(&cEdit); err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+	}else {
+
+	}
+
 }
