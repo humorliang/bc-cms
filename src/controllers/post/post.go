@@ -10,6 +10,7 @@ import (
 	"com/gmysql"
 	"fmt"
 	"com/setting"
+	"strconv"
 )
 
 type AddPostJson struct {
@@ -190,4 +191,22 @@ func AdminDeletePost(c *gin.Context) {
 			ctx.Response(http.StatusOK, e.SUCCESS, "删除成功")
 		}
 	}
+}
+
+//获取文章详情
+func GetPost(c *gin.Context) {
+	ctx := controllers.Context{c}
+	termId, err := strconv.Atoi(ctx.Query("term_id"))
+	pageNum, err := strconv.Atoi(ctx.Query("page_num"))
+	if err != nil {
+		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, err)
+		return
+	}
+	//展示数目
+	pageSize := setting.AppSetting.PostPageSize
+	//偏移量
+	offsetSize := (pageNum - 1) * int(pageSize)
+	//开启事物
+
+
 }

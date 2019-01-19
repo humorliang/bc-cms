@@ -1,9 +1,8 @@
 package main
 
 import (
-	"com/gmysql"
 	"fmt"
-	"db"
+	"strconv"
 )
 
 func main() {
@@ -30,13 +29,15 @@ func main() {
 	//fmt.Println(claims)
 	//a:=[]interface{}{1,"2",&jwtKey}
 	//fmt.Println(a)
-	rows, err := gmysql.Con.Query("select user_id,user_login from bc_user where user_login='u1' ")
-	if err != nil {
-		fmt.Println(err)
-	}
-	rs, err := db.Querys(rows)
-	if err!=nil {
-		fmt.Println(err)
-	}
-	fmt.Println(rs)
+	//rows, err := gmysql.Con.Query("select user_id,user_login from bc_user where user_login='u1' ")
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//rs, err := db.Querys(rows)
+	//if err!=nil {
+	//	fmt.Println(err)
+	//}
+	//fmt.Println(rs)
+	i,err:=strconv.Atoi("1-1")
+	fmt.Println(i,err)
 }

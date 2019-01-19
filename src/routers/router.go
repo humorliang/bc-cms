@@ -42,4 +42,5 @@ func SetUp(r *gin.Engine) {
 
 	//界面API
 	rV1.POST("/comment", comment.AddComment)
-}
+	rV1.GET("/")
+	}
