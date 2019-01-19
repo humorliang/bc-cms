@@ -16,12 +16,12 @@ type CommentInfo struct {
 	CommentAuthor      string `json:"comment_author" binding:"required"`
 	CommentAuthorEmail string `json:"comment_author_email" binding:"required"`
 	CommentContent     string `json:"comment_content" binding:"required"`
-	CommentParentId    int64    `json:"comment_parent_id"`
-	CommentPostId      int64   `json:"comment_post_id" binding:"required"`
+	CommentParentId    int64  `json:"comment_parent_id"`
+	CommentPostId      int64  `json:"comment_post_id" binding:"required"`
 }
 type CommentEdit struct {
 	CommentId       int64 `json:"comment_id" binding:"required"`
-	CommentApproved int64 `json:"comment_approved" binding:"required"`
+	CommentApproved int64 `json:"comment_approved"`
 }
 
 //添加留言或者评论
@@ -40,11 +40,13 @@ func AddComment(c *gin.Context) {
 		//	return
 		//}
 		userId := 1
-		num, id, err := db.QRUDExec("INSERT INTO bc_comments "+
+		commentAuthorIP := ctx.ClientIP()
+		num, _, err := db.QRUDExec("INSERT INTO bc_comments "+
 			"(comment_author,comment_author_email,comment_content,"+
-			"comment_parent,comment_post_id,user_id) VALUES (?,?,?,?,?,?)",
+			"comment_parent,comment_post_id,comment_author_IP,user_id) "+
+			"VALUES (?,?,?,?,?,?,?)",
 			comment.CommentAuthor, comment.CommentAuthorEmail, comment.CommentContent,
-			comment.CommentParentId, comment.CommentPostId, userId)
+			comment.CommentParentId, comment.CommentPostId, commentAuthorIP, userId)
 		if err != nil || num == 0 {
 			if num == 0 {
 				logging.Error(err)
@@ -54,9 +56,7 @@ func AddComment(c *gin.Context) {
 				ctx.Response(http.StatusInternalServerError, e.ERROR_ADD_COMMENT_FAIL, "")
 			}
 		} else {
-			ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
-				"comment_id": id,
-			})
+			ctx.Response(http.StatusOK, e.SUCCESS, "评论审核中")
 		}
 	}
 }
@@ -129,8 +129,43 @@ func AdminEditComment(c *gin.Context) {
 	if err := ctx.BindJSON(&cEdit); err != nil {
 		logging.Error(err)
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
-	}else {
-
+	} else {
+		num, _, err := db.QRUDExec("UPDATE bc_comments SET comment_approved=? WHERE comment_id=?",
+			cEdit.CommentApproved, cEdit.CommentId)
+		if err != nil || num == 0 {
+			if num == 0 {
+				logging.Error(err)
+				ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+			} else {
+				logging.Error(err)
+				ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+			}
+		} else {
+			ctx.Response(http.StatusOK, e.SUCCESS, "编辑成功")
+		}
 	}
+}
 
+//删除评论
+func AdminDeleteComment(c *gin.Context) {
+	ctx := controllers.Context{c}
+	var com CommentEdit
+	if err := ctx.BindJSON(&com); err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+	} else {
+		num, _, err := db.QRUDExec("DELETE FROM bc_comments WHERE comment_id=?",
+			com.CommentId)
+		if err != nil || num == 0 {
+			if num == 0 {
+				logging.Error(err)
+				ctx.Response(http.StatusInternalServerError, e.ERROR_DELETE_COMMENT, "")
+			} else {
+				logging.Error(err)
+				ctx.Response(http.StatusInternalServerError, e.ERROR_DELETE_COMMENT, "")
+			}
+		} else {
+			ctx.Response(http.StatusOK, e.SUCCESS, "删除成功")
+		}
+	}
 }

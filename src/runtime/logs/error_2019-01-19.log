@@ -1,0 +1,2 @@
+[error][/home/tempt/workspace/bc-cms/src/controllers/comment/comment.go:133]2019/01/19 09:53:01 [Key: 'CommentEdit.CommentApproved' Error:Field validation for 'CommentApproved' failed on the 'required' tag]
+[error][/home/tempt/workspace/bc-cms/src/controllers/comment/comment.go:138]2019/01/19 09:54:28 [<nil>]

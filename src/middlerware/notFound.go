@@ -3,7 +3,6 @@ package middlerware
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"com/e"
 )
 
 //404中间件
@@ -13,10 +12,10 @@ func NotFoundPage() gin.HandlerFunc {
 		if c.Writer.Status() == 404 {
 			c.JSON(http.StatusNotFound, gin.H{
 				"code": http.StatusNotFound,
-				"msg":  e.INVALID_PARAMS,
+				"msg":  "请求的URL有误",
 				"data": "",
 			})
-		}else {
+		} else {
 			c.Next()
 		}
 	}
