@@ -272,6 +272,10 @@ func GetPost(c *gin.Context) {
 	}
 	//开启事务
 	tx, err := gmysql.Con.Begin()
-	rows,err:=tx.Query("SELECT post_author,post_date,post_content,post_title,post_excerpt,comment_count")
+	rows, err := tx.Query("SELECT post_author,post_date,post_content,post_title,post_excerpt,comment_count")
+	res, err := db.Querys(rows)
+	if err != nil {
+
+	}
 
 }
