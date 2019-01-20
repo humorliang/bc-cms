@@ -193,13 +193,13 @@ func AdminDeletePost(c *gin.Context) {
 	}
 }
 
-//获取文章详情
-func GetPost(c *gin.Context) {
+//获取分类文章列表
+func GetTermPosts(c *gin.Context) {
 	ctx := controllers.Context{c}
 	termId, err := strconv.Atoi(ctx.Query("term_id"))
 	pageNum, err := strconv.Atoi(ctx.Query("page_num"))
 	if err != nil {
-		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, err)
+		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 		return
 	}
 	//展示数目
@@ -207,6 +207,71 @@ func GetPost(c *gin.Context) {
 	//偏移量
 	offsetSize := (pageNum - 1) * int(pageSize)
 	//开启事物
-	fmt.Println(termId,offsetSize)
+	tx, err := gmysql.Con.Begin()
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusBadRequest, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	//查询
+	rows, err := tx.Query("SELECT post_id,post_author,post_date,post_content,post_title,"+
+		"post_excerpt,post_pre_img_url,comment_count "+
+		"FROM bc_posts WHERE bc_posts.post_id IN (SELECT object_id "+
+		"FROM bc_term_relationships tr,bc_term_taxonomy ta "+
+		"WHERE tr.term_taxonomy_id=ta.term_taxonomy_id AND ta.term_id=?)"+
+		"Limit ?,?", termId, offsetSize, pageSize)
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusBadRequest, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	res, err := db.Querys(rows)
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusBadRequest, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts Limit ?", 1)
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusBadRequest, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	res2, err := db.Querys(rows2)
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusBadRequest, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	//提交事务
+	err = tx.Commit()
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusBadRequest, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
+		"post_total": res2[0]["row_counts"],
+		"page_num":   pageNum,
+		"post_list":  res,
+	})
+}
+
+//获取文章详情
+func GetPost(c *gin.Context) {
+	ctx := controllers.Context{c}
+	postId, err := strconv.Atoi(ctx.Query("post_id"))
+	if err != nil {
+		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+		return
+	}
+	//开启事务
+	tx, err := gmysql.Con.Begin()
+	rows,err:=tx.Query("SELECT post_author,post_date,post_content,post_title,post_excerpt,comment_count")
 
 }

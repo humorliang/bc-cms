@@ -30,9 +30,11 @@ const (
 	ERROR_DELETE_ARTICLE_FAIL      = 10014 //删除文章失败
 	ERROR_EDIT_ARTICLE_FAIL        = 10015 //修改文章失败
 	ERROR_COUNT_ARTICLE_FAIL       = 10016 //统计文章失败
-	ERROR_GET_ARTICLES_FAIL        = 10017 //获取多个文章失败
+	ERROR_GET_ARTICLES_FAIL        = 10017 //获取文章列表失败
 	ERROR_GET_ARTICLE_FAIL         = 10018 //获取单个文章失败
 	ERROR_GEN_ARTICLE_POSTER_FAIL  = 10019 //生成文章海报失败
+
+
 	//评论类错误
 	ERROR_ADD_COMMENT_FAIL = 10020 //添加评论失败
 	ERROR_GET_COMMENTS     = 10021 //获取评论失败

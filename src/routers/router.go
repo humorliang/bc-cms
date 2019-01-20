@@ -42,5 +42,6 @@ func SetUp(r *gin.Engine) {
 
 	//界面API
 	rV1.POST("/comment", comment.AddComment)
-	rV1.GET("/")
-	}
+	rV1.GET("/term/posts", post.GetTermPosts)
+	rV1.GET("/post", post.GetPost)
+}

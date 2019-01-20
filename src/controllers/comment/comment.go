@@ -24,7 +24,7 @@ type CommentEdit struct {
 	CommentApproved int64 `json:"comment_approved"`
 }
 
-//添加留言或者评论
+//添加评论
 func AddComment(c *gin.Context) {
 	ctx := controllers.Context{c}
 	var comment CommentInfo
@@ -41,12 +41,13 @@ func AddComment(c *gin.Context) {
 		//}
 		userId := 1
 		commentAuthorIP := ctx.ClientIP()
-		num, _, err := db.QRUDExec("INSERT INTO bc_comments "+
+		res, err := gmysql.Con.Exec("INSERT INTO bc_comments "+
 			"(comment_author,comment_author_email,comment_content,"+
 			"comment_parent,comment_post_id,comment_author_IP,user_id) "+
 			"VALUES (?,?,?,?,?,?,?)",
 			comment.CommentAuthor, comment.CommentAuthorEmail, comment.CommentContent,
 			comment.CommentParentId, comment.CommentPostId, commentAuthorIP, userId)
+		num, err := res.RowsAffected()
 		if err != nil || num == 0 {
 			if num == 0 {
 				logging.Error(err)
@@ -90,7 +91,7 @@ func AdminGetComments(c *gin.Context) {
 			return
 		}
 		//查询数量
-		rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts WHERE 1=?", 1)
+		rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts Limit ?", 1)
 		if err != nil {
 			tx.Rollback()
 			logging.Error(err)
@@ -130,8 +131,16 @@ func AdminEditComment(c *gin.Context) {
 		logging.Error(err)
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 	} else {
-		num, _, err := db.QRUDExec("UPDATE bc_comments SET comment_approved=? WHERE comment_id=?",
+		//开启事务
+		tx, err := gmysql.Con.Begin()
+		if err != nil {
+			logging.Error(err)
+			ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+		}
+		res, err := tx.Exec("UPDATE bc_comments SET comment_approved=? WHERE comment_id=?",
 			cEdit.CommentApproved, cEdit.CommentId)
+		num, err := res.RowsAffected()
+		id, err := res.LastInsertId()
 		if err != nil || num == 0 {
 			if num == 0 {
 				logging.Error(err)
@@ -140,9 +149,56 @@ func AdminEditComment(c *gin.Context) {
 				logging.Error(err)
 				ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
 			}
-		} else {
-			ctx.Response(http.StatusOK, e.SUCCESS, "编辑成功")
+			tx.Rollback()
+			return
 		}
+		//评论状态判断
+		if cEdit.CommentApproved == 1 {
+			res2, err := tx.Exec("UPDATE bc_posts SET comment_count=comment_count+1 "+
+				"WHERE post_id=(SELECT comment_post_id FROM bc_comments WHERE comment_id=?)", id)
+			num2, err := res2.RowsAffected()
+			if err != nil || num2 == 0 {
+				if num2 == 0 {
+					logging.Error(err)
+					ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+				} else {
+					logging.Error(err)
+					ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+				}
+				tx.Rollback()
+				return
+			}
+			err = tx.Commit()
+			if err != nil {
+				tx.Rollback()
+				logging.Error(err)
+				ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+				return
+			}
+		} else {
+			res2, err := tx.Exec("UPDATE bc_posts SET comment_count=comment_count-1 "+
+				"WHERE post_id=(SELECT comment_post_id FROM bc_comments WHERE comment_id=?)", id)
+			num2, err := res2.RowsAffected()
+			if err != nil || num2 == 0 {
+				if num2 == 0 {
+					logging.Error(err)
+					ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+				} else {
+					logging.Error(err)
+					ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+				}
+				tx.Rollback()
+				return
+			}
+			err = tx.Commit()
+			if err != nil {
+				tx.Rollback()
+				logging.Error(err)
+				ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
+				return
+			}
+		}
+		ctx.Response(http.StatusOK, e.SUCCESS, "编辑成功")
 	}
 }
 
