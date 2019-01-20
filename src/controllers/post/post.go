@@ -207,6 +207,6 @@ func GetPost(c *gin.Context) {
 	//偏移量
 	offsetSize := (pageNum - 1) * int(pageSize)
 	//开启事物
-
+	fmt.Println(termId,offsetSize)
 
 }
