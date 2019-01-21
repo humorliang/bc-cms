@@ -62,9 +62,3 @@ type Link struct {
 	LinkRating      int    `json:"link_rating,omitempty"`
 	LinkUpdated     string `json:"link_updated,omitempty"`
 }
-
-//分页
-type PageNum struct {
-	PageNum int64 `form:"page_num" binding:"required"`
-}
-

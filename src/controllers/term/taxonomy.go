@@ -25,6 +25,11 @@ type Term struct {
 	TermId int64 `json:"term_id" binding:"required"`
 }
 
+type TermPostRaship struct {
+	TermId int64 `json:"term_id" binding:"required"`
+	PostId int64 `json:"post_id" binding:"required"`
+}
+
 //添加分类
 func AdminAddTaxonomyTerm(c *gin.Context) {
 	ctx := controllers.Context{c}
@@ -130,6 +135,27 @@ func AdminDelTaxonomy(c *gin.Context) {
 			}
 		} else {
 			ctx.Response(http.StatusOK, e.SUCCESS, "删除成功")
+		}
+	}
+}
+
+//分类关联文章
+func AdminAddTaxonomyRalationship(c *gin.Context) {
+	ctx := controllers.Context{c}
+	var tPostR TermPostRaship
+	if err := ctx.BindJSON(&tPostR); err != nil {
+		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+	} else {
+		num, _, err := db.QRUDExec("INSERT INTO bc_term_relationships (object_id,term_taxonomy_id) "+
+			"VALUES (?,?) ", tPostR.PostId, tPostR.TermId)
+		if err != nil || num == 0 {
+			if num == 0 {
+				ctx.Response(http.StatusInternalServerError, e.ERROR_RALATIONSHIP_POST_TERM, "")
+			} else {
+				ctx.Response(http.StatusInternalServerError, e.ERROR_RALATIONSHIP_POST_TERM, "")
+			}
+		} else {
+			ctx.Response(http.StatusOK, e.SUCCESS, "关联成功")
 		}
 	}
 }

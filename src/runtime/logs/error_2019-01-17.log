@@ -1,5 +1,0 @@
-[error][/Users/datatist001/bc-cms/src/controllers/post/post.go:23]2019/01/17 13:29:19 [Key: 'AddPostJson.PostContent' Error:Field validation for 'PostContent' failed on the 'required' tag]
-[error][/Users/datatist001/bc-cms/src/controllers/post/post.go:104]2019/01/17 15:03:58 [json: cannot unmarshal string into Go struct field EditPostTitleJson.post_id of type int]
-[error][/Users/datatist001/bc-cms/src/controllers/post/post.go:153]2019/01/17 15:19:29 [Key: 'EditPostTitleJson.PostTitle' Error:Field validation for 'PostTitle' failed on the 'required' tag]
-[error][/Users/datatist001/bc-cms/src/controllers/term/taxonomy.go:23]2019/01/17 17:28:26 [json: cannot unmarshal number into Go value of type string]
-[error][/Users/datatist001/bc-cms/src/controllers/term/taxonomy.go:23]2019/01/17 17:29:30 [json: cannot unmarshal number into Go value of type string]

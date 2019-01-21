@@ -8,15 +8,15 @@ import (
 	"com/e"
 	"db"
 	"com/gmysql"
-	"fmt"
 	"com/setting"
 	"strconv"
 )
 
 type AddPostJson struct {
-	PostTitle   string `json:"post_title" binding:"required"`
-	PostExcerpt string `json:"post_excerpt" binding:"required"`
-	PostContent string `json:"post_content" binding:"required"`
+	PostTitle     string `json:"post_title" binding:"required"`
+	PostExcerpt   string `json:"post_excerpt" binding:"required"`
+	PostContent   string `json:"post_content" binding:"required"`
+	PostPreImgUrl string `json:"post_pre_img_url"`
 }
 type EditPostTitleJson struct {
 	PostId    int    `json:"post_id" binding:"required"`
@@ -43,15 +43,17 @@ func AdminAddPost(c *gin.Context) {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 	} else {
 		//获取用户ID
-		//userId, ok := ctx.Get("userId")
-		//if !ok {
-		//	ctx.Response(http.StatusUnauthorized, e.ERROR_AUTH_GET_USER_FAIL, "")
-		//	return
-		//}
-		userId := 1
+		userId, ok := ctx.Get("userId")
+		if !ok {
+			ctx.Response(http.StatusUnauthorized, e.ERROR_AUTH_GET_USER_FAIL, "")
+			return
+		} else {
+			userId = 1
+		}
 		//数据插入
-		_, res, err := db.QRUDExec("INSERT INTO bc_posts (post_author,post_title,post_excerpt,post_content) VALUES (?,?,?,?) ",
-			userId, post.PostTitle, post.PostExcerpt, post.PostContent)
+		_, res, err := db.QRUDExec("INSERT INTO bc_posts (post_author,post_title,post_excerpt,"+
+			"post_content,post_pre_img_url) VALUES (?,?,?,?,?) ", userId, post.PostTitle,
+			post.PostExcerpt, post.PostContent, post.PostPreImgUrl)
 		if err != nil || res == 0 {
 			if res == 0 {
 				ctx.Response(http.StatusInternalServerError, e.ERROR_ADD_ARTICLE_FAIL, "")
@@ -65,39 +67,54 @@ func AdminAddPost(c *gin.Context) {
 	}
 }
 
-//获取文章  bug post_id类型bug 添加？
-func AdminGETPost(c *gin.Context) {
+//获取文章列表  bug post_id类型bug 添加？
+func AdminGETPosts(c *gin.Context) {
 	ctx := controllers.Context{c}
-	var pageNum controllers.PageNum
-	if err := ctx.ShouldBindQuery(&pageNum); err == nil {
-		pageSize := setting.AppSetting.PostPageSize
-		offsetSize := (pageNum.PageNum - 1) * pageSize
-		//开启一个事务
-		tx, err := gmysql.Con.Begin()
-		sql1 := fmt.Sprintf("SELECT post_id,user_nicename,post_date,"+
-			"post_title,post_excerpt,post_status,comment_status,post_modified,"+
-			"comment_count FROM bc_users u,bc_posts p "+
-			"WHERE u.user_id=p.post_author Limit %d,%d",
-			offsetSize, pageSize)
-		//事务查询
-		resList, err := db.TranscationQuerys(tx,
-			sql1, "SELECT FOUND_ROWS() AS row_counts")
-		if err != nil {
-			logging.Error(err)
-			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLES_FAIL, "")
-			return
-		}
-		resPostInfo := resList[0]
-		resPosts := resList[1]
-		ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
-			"post_total": resPosts[0]["row_counts"],
-			"page_num":   pageNum.PageNum,
-			"post_list":  resPostInfo,
-		})
-	} else {
-		logging.Error(err)
+	//对查询的参数进行类型转化
+	pageNum, err := strconv.Atoi(ctx.Query("page_num"))
+	if err != nil {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+		return
 	}
+	pageSize := setting.AppSetting.PostPageSize
+	offsetSize := int64(pageNum-1) * pageSize
+	//开启一个事务
+	tx, err := gmysql.Con.Begin()
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	rows, err := tx.Query("SELECT post_id,user_nicename,post_date,"+
+		"post_title,post_excerpt,post_status,comment_status,post_modified,"+
+		"comment_count FROM bc_users u,bc_posts p "+
+		"WHERE u.user_id=p.post_author Limit ?,?",
+		offsetSize, pageSize)
+	res, err := db.Querys(rows)
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts LIMIT ?", 1)
+	res2, err := db.Querys(rows2)
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	err = tx.Commit()
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLES_FAIL, "")
+		return
+	}
+	ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
+		"post_total": res2[0]["row_counts"],
+		"page_num":   pageNum,
+		"post_list":  res,
+	})
 }
 
 //编辑文章标题
@@ -272,10 +289,38 @@ func GetPost(c *gin.Context) {
 	}
 	//开启事务
 	tx, err := gmysql.Con.Begin()
-	rows, err := tx.Query("SELECT post_author,post_date,post_content,post_title,post_excerpt,comment_count")
+	rows, err := tx.Query("SELECT user_nicename,post_date,post_content,"+
+		"post_title,post_excerpt,comment_count FROM bc_posts p,bc_users u "+
+		"WHERE post_id=? AND p.post_author=u.user_id", postId)
 	res, err := db.Querys(rows)
-	if err != nil {
-
+	if err != nil || len(res) == 0 {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLE_FAIL, "")
+		return
 	}
-
+	rows2, err := tx.Query("SELECT comment_id,comment_author,comment_date,"+
+		"comment_content,comment_parent FROM bc_comments "+
+		"WHERE comment_post_id=? AND comment_approved=?", postId, 0)
+	res2, err := db.Querys(rows2)
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLE_FAIL, "")
+		return
+	}
+	err = tx.Commit()
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLE_FAIL, "")
+		return
+	}
+	ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
+		"post_author":   res[0]["user_nicename"],
+		"post_date":     res[0]["post_date"],
+		"post_content":  res[0]["post_content"],
+		"post_title":    res[0]["post_title"],
+		"post_excerpt":  res[0]["post_excerpt"],
+		"comment_count": res[0]["comment_count"],
+		"comment_list":  res2,
+	})
 }

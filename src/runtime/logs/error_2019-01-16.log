@@ -1,4 +1,0 @@
-[error][/Users/datatist001/bc-cms/src/controllers/user/user.go:110]2019/01/16 09:38:15 [Key: 'RegisterInfo.UserNicename' Error:Field validation for 'UserNicename' failed on the 'required' tag
-Key: 'RegisterInfo.UserEmail' Error:Field validation for 'UserEmail' failed on the 'required' tag]
-[error][/Users/datatist001/bc-cms/src/controllers/user/user.go:54]2019/01/16 10:54:41 [col:%!s(int64=1) switch type err! ]
-[error][/Users/datatist001/bc-cms/src/controllers/user/user.go:186]2019/01/16 17:55:03 [strconv.ParseInt: parsing "''": invalid syntax]

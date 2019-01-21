@@ -9,6 +9,8 @@ import (
 	"db"
 	"com/gmysql"
 	"com/setting"
+	"fmt"
+	"strconv"
 )
 
 //评论结构体
@@ -34,12 +36,13 @@ func AddComment(c *gin.Context) {
 		return
 	} else {
 		//获取用户ID
-		//userId, ok := ctx.Get("userId")
-		//if !ok {
-		//	ctx.Response(http.StatusUnauthorized, e.ERROR_AUTH_GET_USER_FAIL, "")
-		//	return
-		//}
-		userId := 1
+		userId, ok := ctx.Get("userId")
+		if !ok {
+			ctx.Response(http.StatusUnauthorized, e.ERROR_AUTH_GET_USER_FAIL, "")
+			return
+		}else {
+			userId = 1
+		}
 		commentAuthorIP := ctx.ClientIP()
 		res, err := gmysql.Con.Exec("INSERT INTO bc_comments "+
 			"(comment_author,comment_author_email,comment_content,"+
@@ -65,62 +68,62 @@ func AddComment(c *gin.Context) {
 //获取全部评论
 func AdminGetComments(c *gin.Context) {
 	ctx := controllers.Context{c}
-	var pageNum controllers.PageNum
-	if err := ctx.ShouldBindQuery(&pageNum); err == nil {
-		pageSize := setting.AppSetting.UserPageSize
-		offsetSize := (pageNum.PageNum - 1) * pageSize
-		//开启一个事务
-		tx, err := gmysql.Con.Begin()
-		rows, err := tx.Query("SELECT comment_id,comment_post_id,post_title,"+
-			"comment_author,comment_author_IP,comment_content,comment_date,comment_approved"+
-			" FROM bc_comments c,bc_posts p "+
-			"WHERE c.comment_post_id=p.post_id AND 1=? Limit ?,?",
-			1, offsetSize, pageSize)
-		if err != nil {
-			tx.Rollback()
-			logging.Error(err)
-			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
-			return
-		}
-		//查询数据
-		data, err := db.Querys(rows)
-		if err != nil {
-			tx.Rollback()
-			logging.Error(err)
-			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
-			return
-		}
-		//查询数量
-		rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts Limit ?", 1)
-		if err != nil {
-			tx.Rollback()
-			logging.Error(err)
-			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
-			return
-		}
-		data2, err := db.Querys(rows2)
-		if err != nil {
-			tx.Rollback()
-			logging.Error(err)
-			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
-			return
-		}
-		//提交事务
-		if err := tx.Commit(); err != nil {
-			tx.Rollback()
-			logging.Error(err)
-			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
-			return
-		}
-		ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
-			"user_total": data2[0]["row_counts"],
-			"page_num":   pageNum.PageNum,
-			"user_list":  data,
-		})
-	} else {
-		logging.Error(err)
+	//获取查询参数
+	pageNum, err := strconv.Atoi(ctx.Query("page_num"))
+	if err != nil {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 	}
+	pageSize := setting.AppSetting.UserPageSize
+	offsetSize := int64(pageNum-1) * pageSize
+	//开启一个事务
+	tx, err := gmysql.Con.Begin()
+	rows, err := tx.Query("SELECT comment_id,comment_post_id,post_title,"+
+		"comment_author,comment_author_IP,comment_content,comment_date,comment_approved"+
+		" FROM bc_comments c,bc_posts p "+
+		"WHERE c.comment_post_id=p.post_id AND 1=? Limit ?,?",
+		1, offsetSize, pageSize)
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+		return
+	}
+	//查询数据
+	data, err := db.Querys(rows)
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+		return
+	}
+	//查询数量
+	rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts Limit ?", 1)
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+		return
+	}
+	data2, err := db.Querys(rows2)
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+		return
+	}
+	//提交事务
+	if err := tx.Commit(); err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_GET_TAXONOMY, "")
+		return
+	}
+	ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
+		"user_total": data2[0]["row_counts"],
+		"page_num":   pageNum,
+		"user_list":  data,
+	})
+
 }
 
 //编辑评论状态
@@ -137,10 +140,12 @@ func AdminEditComment(c *gin.Context) {
 			logging.Error(err)
 			ctx.Response(http.StatusInternalServerError, e.ERROR_EDIT_COMMENT, "")
 		}
+		fmt.Println(cEdit)
 		res, err := tx.Exec("UPDATE bc_comments SET comment_approved=? WHERE comment_id=?",
 			cEdit.CommentApproved, cEdit.CommentId)
 		num, err := res.RowsAffected()
-		id, err := res.LastInsertId()
+		//id, err := res.LastInsertId()
+		//fmt.Println(res,num)
 		if err != nil || num == 0 {
 			if num == 0 {
 				logging.Error(err)
@@ -153,9 +158,9 @@ func AdminEditComment(c *gin.Context) {
 			return
 		}
 		//评论状态判断
-		if cEdit.CommentApproved == 1 {
+		if cEdit.CommentApproved == 0 {
 			res2, err := tx.Exec("UPDATE bc_posts SET comment_count=comment_count+1 "+
-				"WHERE post_id=(SELECT comment_post_id FROM bc_comments WHERE comment_id=?)", id)
+				"WHERE post_id=(SELECT comment_post_id FROM bc_comments WHERE comment_id=?)", cEdit.CommentId)
 			num2, err := res2.RowsAffected()
 			if err != nil || num2 == 0 {
 				if num2 == 0 {
@@ -177,7 +182,7 @@ func AdminEditComment(c *gin.Context) {
 			}
 		} else {
 			res2, err := tx.Exec("UPDATE bc_posts SET comment_count=comment_count-1 "+
-				"WHERE post_id=(SELECT comment_post_id FROM bc_comments WHERE comment_id=?)", id)
+				"WHERE post_id=(SELECT comment_post_id FROM bc_comments WHERE comment_id=?)", cEdit.CommentId)
 			num2, err := res2.RowsAffected()
 			if err != nil || num2 == 0 {
 				if num2 == 0 {

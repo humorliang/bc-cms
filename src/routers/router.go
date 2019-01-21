@@ -6,6 +6,7 @@ import (
 	"controllers/post"
 	"controllers/term"
 	"controllers/comment"
+	"ginCms/middleware"
 )
 
 //路由初始化
@@ -20,12 +21,12 @@ func SetUp(r *gin.Engine) {
 
 	//后台API
 	//用户操作
-	rV1Admin := rV1.Group("/admin")
+	rV1Admin := rV1.Group("/admin",middleware.JWTAuth())
 	rV1Admin.GET("/users", user.GetUsers)
 	rV1Admin.DELETE("/user", user.DelUser)
 	//文章操作
 	rV1Admin.POST("/post", post.AdminAddPost)
-	rV1Admin.GET("/posts", post.AdminGETPost)
+	rV1Admin.GET("/posts", post.AdminGETPosts)
 	rV1Admin.PUT("/post/title", post.AdminEditTitlePost)
 	rV1Admin.PUT("/post/status", post.AdminEditStatusPost)
 	rV1Admin.PUT("/post/comment/status", post.AdminEditCommentStatusPost)
@@ -35,6 +36,8 @@ func SetUp(r *gin.Engine) {
 	rV1Admin.GET("/taxonomys/term", term.AdminGetTaxonomys)
 	rV1Admin.GET("/taxonomy/term", term.AdminGetTaxonomy)
 	rV1Admin.DELETE("/taxonomy/term", term.AdminDelTaxonomy)
+	rV1Admin.POST("/taxonomy/term/post", term.AdminAddTaxonomyRalationship)
+
 	//评论操作
 	rV1Admin.GET("/comments", comment.AdminGetComments)
 	rV1Admin.PUT("/comment", comment.AdminEditComment)
@@ -44,4 +47,5 @@ func SetUp(r *gin.Engine) {
 	rV1.POST("/comment", comment.AddComment)
 	rV1.GET("/term/posts", post.GetTermPosts)
 	rV1.GET("/post", post.GetPost)
+
 }

@@ -18,10 +18,11 @@ const (
 	ERROR_DELETE_TAG_FAIL = 10008 //删除标签失败
 
 	//分类错误
-	ERROR_TAXONOMY_TERM_FAIL = 11001 //添加分类失败
-	ERROR_GET_TAXONOMYS      = 11002 //获取全部分类失败
-	ERROR_GET_TAXONOMY       = 11003 //获取相关分类失败
-	ERROR_DELETE_TERM        = 11004 //删除分类失败
+	ERROR_TAXONOMY_TERM_FAIL     = 11001 //添加分类失败
+	ERROR_GET_TAXONOMYS          = 11002 //获取全部分类失败
+	ERROR_GET_TAXONOMY           = 11003 //获取相关分类失败
+	ERROR_DELETE_TERM            = 11004 //删除分类失败
+	ERROR_RALATIONSHIP_POST_TERM = 11005 //分类关联文章失败
 
 	//文章类错误
 	ERROR_NOT_EXIST_ARTICLE        = 10011 //该文章不存在
@@ -31,9 +32,8 @@ const (
 	ERROR_EDIT_ARTICLE_FAIL        = 10015 //修改文章失败
 	ERROR_COUNT_ARTICLE_FAIL       = 10016 //统计文章失败
 	ERROR_GET_ARTICLES_FAIL        = 10017 //获取文章列表失败
-	ERROR_GET_ARTICLE_FAIL         = 10018 //获取单个文章失败
+	ERROR_GET_ARTICLE_FAIL         = 10018 //获取文章详情失败
 	ERROR_GEN_ARTICLE_POSTER_FAIL  = 10019 //生成文章海报失败
-
 
 	//评论类错误
 	ERROR_ADD_COMMENT_FAIL = 10020 //添加评论失败
@@ -80,10 +80,12 @@ var MsgFlags = map[int]string{
 	ERROR_EDIT_TAG_FAIL:   "修改标签失败",
 	ERROR_DELETE_TAG_FAIL: "删除标签失败",
 
-	ERROR_TAXONOMY_TERM_FAIL: "添加分类失败",
-	ERROR_GET_TAXONOMYS:      "获取全部分类失败",
-	ERROR_GET_TAXONOMY:       "获取相关分类失败",
-	ERROR_DELETE_TERM:        "删除分类失败",
+	ERROR_TAXONOMY_TERM_FAIL:     "添加分类失败",
+	ERROR_GET_TAXONOMYS:          "获取全部分类失败",
+	ERROR_GET_TAXONOMY:           "获取相关分类失败",
+	ERROR_DELETE_TERM:            "删除分类失败",
+	ERROR_RALATIONSHIP_POST_TERM: "分类关联文章失败",
+
 
 	ERROR_ADD_COMMENT_FAIL: "添加评论失败",
 	ERROR_GET_COMMENTS:     "获取评论失败",
@@ -107,7 +109,7 @@ var MsgFlags = map[int]string{
 	ERROR_EDIT_ARTICLE_FAIL:        "编辑文章失败",
 	ERROR_COUNT_ARTICLE_FAIL:       "统计文章失败",
 	ERROR_GET_ARTICLES_FAIL:        "获取文章列表失败",
-	ERROR_GET_ARTICLE_FAIL:         "获取单个文章失败",
+	ERROR_GET_ARTICLE_FAIL:         "获取文章详情失败",
 	ERROR_GEN_ARTICLE_POSTER_FAIL:  "生成文章海报失败",
 
 

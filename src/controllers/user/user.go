@@ -12,6 +12,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"fmt"
 	"db"
+	"strconv"
 )
 
 //登录
@@ -161,33 +162,49 @@ func Register(c *gin.Context) {
 //获取用户列表
 func GetUsers(c *gin.Context) {
 	ctx := controllers.Context{c}
-	var pageNum controllers.PageNum
-	if err := ctx.ShouldBindQuery(&pageNum); err == nil {
-		pageSize := setting.AppSetting.UserPageSize
-		offsetSize := (pageNum.PageNum - 1) * pageSize
-		//开启一个事务
-		tx, err := gmysql.Con.Begin()
-		sql1 := fmt.Sprintf("SELECT user_id,user_nicename,user_email,"+
-			"user_registered,user_status FROM bc_users Limit %d,%d",
-			offsetSize, pageSize)
-		resList, err := db.TranscationQuerys(tx,
-			sql1, "SELECT FOUND_ROWS() AS row_counts")
-		if err != nil {
-			logging.Error(err)
-			ctx.Response(http.StatusInternalServerError, e.ERROR_USERS, "")
-			return
-		}
-		resUserInfo := resList[0]
-		resUsers := resList[1]
-		ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
-			"user_total": resUsers[0]["row_counts"],
-			"page_num":   pageNum.PageNum,
-			"user_list":  resUserInfo,
-		})
-	} else {
-		logging.Error(err)
+	pageNum, err := strconv.Atoi(ctx.Query("page_num"))
+	if err != nil {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+		return
 	}
+	pageSize := setting.AppSetting.UserPageSize
+	offsetSize := int64(pageNum-1) * pageSize
+	//开启一个事务
+	tx, err := gmysql.Con.Begin()
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_USERS, "")
+		return
+	}
+	rows, err := tx.Query("SELECT user_id,user_nicename,user_email,"+
+		"user_registered,user_status FROM bc_users Limit %d,%d",
+		offsetSize, pageSize)
+	res, err := db.Querys(rows)
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_USERS, "")
+		return
+	}
+	rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts LIMIT ?", 1)
+	res2, err := db.Querys(rows2)
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_USERS, "")
+		return
+	}
+	err = tx.Commit()
+	if err != nil {
+		tx.Rollback()
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_USERS, "")
+		return
+	}
+	ctx.Response(http.StatusOK, e.SUCCESS, gin.H{
+		"user_total": res2[0]["row_counts"],
+		"page_num":   pageNum,
+		"user_list":  res,
+	})
+
 }
 
 //删除冻结用户
