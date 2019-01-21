@@ -67,7 +67,7 @@ func AdminAddPost(c *gin.Context) {
 	}
 }
 
-//获取文章列表  bug post_id类型bug 添加？
+//获取文章列表
 func AdminGETPosts(c *gin.Context) {
 	ctx := controllers.Context{c}
 	//对查询的参数进行类型转化
