@@ -6,7 +6,7 @@ import (
 	"controllers/post"
 	"controllers/term"
 	"controllers/comment"
-	"ginCms/middleware"
+	"middlerware"
 )
 
 //路由初始化
@@ -21,7 +21,7 @@ func SetUp(r *gin.Engine) {
 
 	//后台API
 	//用户操作
-	rV1Admin := rV1.Group("/admin",middleware.JWTAuth())
+	rV1Admin := rV1.Group("/admin",middlerware.JwtAuth())
 	rV1Admin.GET("/users", user.GetUsers)
 	rV1Admin.DELETE("/user", user.DelUser)
 	//文章操作
