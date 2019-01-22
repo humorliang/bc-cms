@@ -9,6 +9,7 @@ import (
 	"utils"
 	"com/setting"
 	"com/logging"
+	"fmt"
 )
 
 //jwt 中间件
@@ -20,6 +21,8 @@ func JwtAuth() gin.HandlerFunc {
 		token := ctx.Request.Header.Get("authorization")
 		if token == "" {
 			ctx.Response(http.StatusBadRequest, e.ERROR_AUTH, "")
+			ctx.Abort()
+			return
 		} else {
 			//判断token
 			claims, err := utils.ParseToken(token, setting.AppSetting.JwtKey)
@@ -47,8 +50,8 @@ func JwtAuth() gin.HandlerFunc {
 				return
 			}
 		}
+		fmt.Println("auth success")
 		//交给下一个中间件
 		ctx.Next()
-
 	}
 }

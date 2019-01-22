@@ -37,12 +37,11 @@ func AdminAddLink(c *gin.Context) {
 		return
 	} else {
 		//获取用户ID
-		//userId, ok := ctx.Get("userId")
-		//if !ok {
-		//	ctx.Response(http.StatusUnauthorized, e.ERROR_AUTH_GET_USER_FAIL, "")
-		//	return
-		//}
-		userId := 1
+		userId, ok := ctx.Get("userId")
+		if !ok {
+			ctx.Response(http.StatusUnauthorized, e.ERROR_AUTH_GET_USER_FAIL, "")
+			return
+		}
 		//数据插入
 		num, _, err := db.QRUDExec("INSERT INTO bc_links (link_url,link_name,link_image_url,"+
 			"link_description,link_owner) VALUES (?,?,?,?,?) ",
@@ -61,7 +60,7 @@ func AdminAddLink(c *gin.Context) {
 }
 
 //获取列表
-func AdminGetLink(c *gin.Context) {
+func AdminGetLinks(c *gin.Context) {
 	ctx := controllers.Context{c}
 	pageNum, err := strconv.Atoi(ctx.Query("page_num"))
 	if err != nil {

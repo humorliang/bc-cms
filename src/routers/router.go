@@ -25,6 +25,7 @@ func SetUp(r *gin.Engine) {
 	rV1Admin := rV1.Group("/admin", middlerware.JwtAuth())
 	rV1Admin.GET("/users", user.GetUsers)
 	rV1Admin.DELETE("/user", user.DelUser)
+
 	//文章操作
 	rV1Admin.POST("/post", post.AdminAddPost)
 	rV1Admin.GET("/posts", post.AdminGETPosts)
@@ -32,6 +33,7 @@ func SetUp(r *gin.Engine) {
 	rV1Admin.PUT("/post/status", post.AdminEditStatusPost)
 	rV1Admin.PUT("/post/comment/status", post.AdminEditCommentStatusPost)
 	rV1Admin.DELETE("/post", post.AdminDeletePost)
+
 	//分类操作
 	rV1Admin.POST("/taxonomy/term", term.AdminAddTaxonomyTerm)
 	rV1Admin.GET("/taxonomys/term", term.AdminGetTaxonomys)
@@ -46,7 +48,7 @@ func SetUp(r *gin.Engine) {
 
 	//链接操作
 	rV1Admin.POST("/link", link.AdminAddLink)
-	rV1Admin.GET("/links", link.AdminGetLink)
+	rV1Admin.GET("/links", link.AdminGetLinks)
 	rV1Admin.PUT("/link", link.AdminEditLink)
 	rV1Admin.DELETE("/link", link.AdminDelLink)
 
