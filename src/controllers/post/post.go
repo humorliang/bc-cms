@@ -47,8 +47,6 @@ func AdminAddPost(c *gin.Context) {
 		if !ok {
 			ctx.Response(http.StatusUnauthorized, e.ERROR_AUTH_GET_USER_FAIL, "")
 			return
-		} else {
-			userId = 1
 		}
 		//数据插入
 		_, res, err := db.QRUDExec("INSERT INTO bc_posts (post_author,post_title,post_excerpt,"+

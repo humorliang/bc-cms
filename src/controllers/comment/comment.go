@@ -40,8 +40,6 @@ func AddComment(c *gin.Context) {
 		if !ok {
 			ctx.Response(http.StatusUnauthorized, e.ERROR_AUTH_GET_USER_FAIL, "")
 			return
-		}else {
-			userId = 1
 		}
 		commentAuthorIP := ctx.ClientIP()
 		res, err := gmysql.Con.Exec("INSERT INTO bc_comments "+

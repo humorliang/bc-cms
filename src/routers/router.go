@@ -6,6 +6,7 @@ import (
 	"controllers/post"
 	"controllers/term"
 	"controllers/comment"
+	"controllers/link"
 	"middlerware"
 )
 
@@ -21,7 +22,7 @@ func SetUp(r *gin.Engine) {
 
 	//后台API
 	//用户操作
-	rV1Admin := rV1.Group("/admin",middlerware.JwtAuth())
+	rV1Admin := rV1.Group("/admin", middlerware.JwtAuth())
 	rV1Admin.GET("/users", user.GetUsers)
 	rV1Admin.DELETE("/user", user.DelUser)
 	//文章操作
@@ -42,6 +43,12 @@ func SetUp(r *gin.Engine) {
 	rV1Admin.GET("/comments", comment.AdminGetComments)
 	rV1Admin.PUT("/comment", comment.AdminEditComment)
 	rV1Admin.DELETE("/comment", comment.AdminDeleteComment)
+
+	//链接操作
+	rV1Admin.POST("/link", link.AdminAddLink)
+	rV1Admin.GET("/links", link.AdminGetLink)
+	rV1Admin.PUT("/link", link.AdminEditLink)
+	rV1Admin.DELETE("/link", link.AdminDelLink)
 
 	//界面API
 	rV1.POST("/comment", comment.AddComment)

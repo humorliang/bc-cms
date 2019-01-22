@@ -50,6 +50,12 @@ const (
 	ERROR_NOT_USER            = 10035 //用户不存在
 	ERROR_EXITS_SUPER_USER    = 10036 //超级管理员不能删除
 
+	//链接类错误
+	ERROR_ADD_LINK  = 10040 //链接添加失败",
+	ERROR_GET_LINKS = 10041 //"获取链接列表失败"
+	ERROR_DEL_LINK  = 10042 //删除链接失败
+	ERROR_EDIT_LINK = 10043 //编辑链接失败
+
 	//验证类错误
 	ERROR_AUTH_CHECK_TOKEN_FAIL    = 20001 //Token鉴权失败
 	ERROR_AUTH_CHECK_TOKEN_TIMEOUT = 20002 //Token已过期
@@ -111,6 +117,11 @@ var MsgFlags = map[int]string{
 	ERROR_GET_ARTICLES_FAIL:        "获取文章列表失败",
 	ERROR_GET_ARTICLE_FAIL:         "获取文章详情失败",
 	ERROR_GEN_ARTICLE_POSTER_FAIL:  "生成文章海报失败",
+
+	ERROR_ADD_LINK:  "链接添加失败",
+	ERROR_GET_LINKS: "获取链接列表失败",
+	ERROR_DEL_LINK:  "删除链接失败",
+	ERROR_EDIT_LINK: "编辑链接失败",
 
 
 	ERROR_AUTH_CHECK_TOKEN_FAIL:    "Token鉴权失败",
