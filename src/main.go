@@ -8,6 +8,7 @@ import (
 	"routers"
 	"middlerware"
 	"strconv"
+	"fmt"
 )
 
 func main() {
@@ -17,6 +18,8 @@ func main() {
 	flag.Parse()
 	//配置文件初始化
 	setting.SetUp(mode)
+	//设置模式
+	gin.SetMode(setting.ServerSetting.RunMode)
 	//数据库初始化
 	gmysql.SetUp()
 
@@ -28,5 +31,7 @@ func main() {
 	router.Use(middlerware.NotFoundPage())
 	//注册路由
 	routers.SetUp(router)
+	fmt.Println("Listening and serving HTTP on :",setting.ServerSetting.HttpPort)
+	fmt.Println("-------------------------------------------")
 	router.Run(":" + strconv.Itoa(setting.ServerSetting.HttpPort))
 }

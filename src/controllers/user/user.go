@@ -10,7 +10,6 @@ import (
 	"utils"
 	"com/setting"
 	"github.com/gin-gonic/gin/binding"
-	"fmt"
 	"db"
 	"strconv"
 )
@@ -56,7 +55,7 @@ func Login(c *gin.Context) {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 		return
 	}
-	fmt.Println(loginInfo)
+	//fmt.Println(loginInfo)
 	//数据查询
 	rows, err := gmysql.Con.Query("SELECT user_id,user_login,user_nicename,user_email,user_registered,user_status "+
 		"FROM bc_users WHERE user_login=? AND user_pass=? ", loginInfo.UserLogin, utils.Md5Encrypt(loginInfo.UserPass))

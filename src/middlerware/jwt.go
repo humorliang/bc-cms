@@ -39,12 +39,13 @@ func JwtAuth() gin.HandlerFunc {
 				}
 			}
 			//获取userId
-			if userId, ok := claims["userId"]; ok {
+			if userId, ok := claims["user_id"]; ok {
 				ctx.Set("userId", userId)
 			} else {
-				ctx.Response(http.StatusBadRequest, e.ERROR_AUTH, "")
+				ctx.Response(http.StatusBadRequest, e.ERROR_AUTH_GET_USER_FAIL, "")
+				ctx.Abort()
+				return
 			}
-
 		}
 		//交给下一个中间件
 		ctx.Next()

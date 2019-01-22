@@ -4,6 +4,7 @@ import (
 	"github.com/go-ini/ini"
 	"log"
 	"time"
+	"fmt"
 )
 
 //app结构体
@@ -51,11 +52,13 @@ func SetUp(mode *string) {
 		if err != nil {
 			log.Fatalf("setting load file ‘conf/pro.ini’ error:%s", err)
 		}
+		fmt.Println("-----------loding pro.ini file--------------")
 	} else {
 		cfg, err = ini.Load("conf/dev.ini")
 		if err != nil {
 			log.Fatalf("setting load file ‘conf/dev.ini’ error:%s", err)
 		}
+		fmt.Println("-----------loding dev.ini file--------------")
 	}
 	sectionToMap("app", AppSetting)
 	sectionToMap("server", ServerSetting)
