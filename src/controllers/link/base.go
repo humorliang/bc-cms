@@ -76,7 +76,7 @@ func AdminGetLinks(c *gin.Context) {
 		pageSize := setting.AppSetting.CommentPageSize
 		offsetSize := int64(pageNum-1) * pageSize
 		rows, err := tx.Query("SELECT link_id,link_name,link_url,link_description,"+
-			"user_nicename,link_visible FROM bc_users u,bc_links l "+
+			"user_nicename,link_visible,link_image_url FROM bc_users u,bc_links l "+
 			"WHERE l.link_owner=u.user_id LIMIT ?,?", offsetSize, pageSize)
 		res, err := db.Querys(rows)
 		if err != nil {
