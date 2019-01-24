@@ -49,6 +49,7 @@ const (
 	ERROR_DELETE_USER_FAIL    = 10034 //删除用户失败
 	ERROR_NOT_USER            = 10035 //用户不存在
 	ERROR_EXITS_SUPER_USER    = 10036 //超级管理员不能删除
+	ERROR_EXITS_REGISTER      = 10037 //用户注册失败
 
 	//链接类错误
 	ERROR_ADD_LINK  = 10040 //链接添加失败",
@@ -106,6 +107,7 @@ var MsgFlags = map[int]string{
 	ERROR_DELETE_USER_FAIL:    "删除用户失败",
 	ERROR_NOT_USER:            "用户不存在",
 	ERROR_EXITS_SUPER_USER:    "超级管理员不能删除",
+	ERROR_EXITS_REGISTER:      "用户注册失败",
 
 
 	ERROR_NOT_EXIST_ARTICLE:        "该文章不存在",

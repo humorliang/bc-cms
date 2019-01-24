@@ -55,7 +55,6 @@ func Login(c *gin.Context) {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
 		return
 	}
-	//fmt.Println(loginInfo)
 	//数据查询
 	rows, err := gmysql.Con.Query("SELECT user_id,user_login,user_nicename,user_email,user_registered,user_status "+
 		"FROM bc_users WHERE user_login=? AND user_pass=? ", loginInfo.UserLogin, utils.Md5Encrypt(loginInfo.UserPass))
@@ -124,6 +123,27 @@ func Register(c *gin.Context) {
 		}
 	} else {
 		ctx.Response(http.StatusBadRequest, e.INVALID_PARAMS, "")
+		return
+	}
+	//用户判断
+	//数据查询
+	rows, err := gmysql.Con.Query("SELECT user_id,user_login,user_nicename,user_email,user_registered,user_status "+
+		"FROM bc_users WHERE user_login=?", regInfo.UserLogin)
+	defer rows.Close()
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_EXITS_REGISTER, "")
+		return
+	}
+	//返回查询结果集合
+	userList, err := db.Querys(rows)
+	if err != nil {
+		logging.Error(err)
+		ctx.Response(http.StatusInternalServerError, e.ERROR_EXITS_REGISTER, "")
+		return
+	}
+	if len(userList) != 0 {
+		ctx.Response(http.StatusInternalServerError, e.ERROR_EXITS_REGISTER_USER, "")
 		return
 	}
 	//数据插入
