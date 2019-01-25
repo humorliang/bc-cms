@@ -84,7 +84,7 @@ func AdminGetLinks(c *gin.Context) {
 			ctx.Response(http.StatusInternalServerError, e.ERROR_GET_LINKS, "")
 			return
 		}
-		rows2, err := tx.Query("SELECT FOUND_ROWS() AS row_counts LIMIT ?", 1)
+		rows2, err := tx.Query("SELECT count(link_id) as row_counts FROM bc_links LIMIT ?", 1)
 		res2, err := db.Querys(rows2)
 		if err != nil {
 			logging.Error(err)
